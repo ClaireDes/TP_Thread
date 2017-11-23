@@ -1,0 +1,28 @@
+Start testing: Nov 23 09:35 CET
+----------------------------------------------------------
+1/1 Testing: CommonPthreadError
+1/1 Test: CommonPthreadError
+Command: "/usr/bin/perl" "/user/7/gilberju/Documents/Tp Thread/ensimag-video/tests/pthcocci.pl"
+Directory: /user/7/gilberju/Documents/Tp Thread/ensimag-video/build
+"CommonPthreadError" start time: Nov 23 09:35 CET
+Output:
+----------------------------------------------------------
+--- ../src/synchro.c
++++ /tmp/cocci-output-16229-4e220c-synchro.c
+@@ -12,7 +12,6 @@ bool fenetrePrete = false;
+ /* l'implantation des fonctions de synchro ici */
+ void envoiTailleFenetre(th_ycbcr_buffer buffer) {
+   pthread_cond_init(&image, NULL);
+-  pthread_mutex_lock(&m);
+   windowsx = buffer->width;
+   windowsy = buffer->height;
+ }
+<end of output>
+Test time =   0.46 sec
+----------------------------------------------------------
+Test Failed.
+"CommonPthreadError" end time: Nov 23 09:35 CET
+"CommonPthreadError" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 23 09:35 CET
