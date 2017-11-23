@@ -49,7 +49,7 @@ struct streamstate *getStreamState(ogg_sync_state *pstate, ogg_page *ppage,
     // trouver le stream associé à la page ou le construire
     int serial = ogg_page_serialno( ppage );
     int bos = ogg_page_bos( ppage );
-    pthread_mutex_t mutex_hashmap;
+   
 
     struct streamstate *s= NULL;
     if (bos) { // début de stream
@@ -67,7 +67,7 @@ struct streamstate *getStreamState(ogg_sync_state *pstate, ogg_page *ppage,
 	assert(res == 0);
 
 	// proteger l'accès à la hashmap
-	pthread_mutex_lock(&mutex_hasmap);
+	pthread_mutex_lock(&mutex_hashmap);
 	if (type == TYPE_THEORA)
 	    HASH_ADD_INT( theorastrstate, serial, s );
 	else
@@ -76,12 +76,12 @@ struct streamstate *getStreamState(ogg_sync_state *pstate, ogg_page *ppage,
 
     } else {
       // proteger l'accès à la hashmap
-      pthread_mutex_lock(&mutex_hasmap);
+      pthread_mutex_lock(&mutex_hashmap);
       if (type == TYPE_THEORA)
 	HASH_FIND_INT( theorastrstate, & serial, s );
       else	
 	HASH_FIND_INT( vorbisstrstate, & serial, s ); 
-      pthread_mutex_unlock(&mutex_hasmap);   
+      pthread_mutex_unlock(&mutex_hashmap);   
 
 	assert(s != NULL);
     }

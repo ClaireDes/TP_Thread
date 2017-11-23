@@ -9,6 +9,8 @@ extern struct timespec datedebut;
 
 pthread_t threadAffichage;
 
+pthread_mutex_t mutex_hashmap;
+
 int msFromStart();
 void pageReader(FILE *vf, ogg_sync_state *pstate, ogg_page *ppage);
 struct streamstate *getStreamState(ogg_sync_state *pstate, ogg_page *ppage,

@@ -1,4 +1,4 @@
-# Install script for directory: /user/7/gilberju/Documents/Tp Thread/ensimag-video
+# Install script for directory: /user/2/.base/deshayec/home/Documents/SEPC/Tp Thread/ensimag-video
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/user/7/gilberju/Documents/Tp Thread/ensimag-video/build/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/user/2/.base/deshayec/home/Documents/SEPC/Tp Thread/ensimag-video/build/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/user/7/gilberju/Documents/Tp Thread/ensimag-video/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/user/2/.base/deshayec/home/Documents/SEPC/Tp Thread/ensimag-video/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

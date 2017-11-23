@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include "ensitheora.h"
 #include "synchro.h"
+#include "pthread.h"
 #include "stream_common.h"
 
 int windowsx = 0;
@@ -10,8 +11,6 @@ int windowsy = 0;
 
 int tex_iaff= 0;
 int tex_iwri= 0;
-
-pthread_mutex_t mutex_hashmap;
 
 static SDL_Window *screen = NULL;
 static SDL_Renderer *renderer = NULL;
@@ -63,9 +62,9 @@ void *draw2SDL(void *arg) {
 
     /* Protéger l'accès à la hashmap */
     
-    pthread_mutex_lock(&mutex_hasmap);
+    pthread_mutex_lock(&mutex_hashmap);
     HASH_FIND_INT( theorastrstate, &serial, s );
-    pthread_mutex_unlock(&mutex_hasmap);
+    pthread_mutex_unlock(&mutex_hashmap);
 
 
     assert(s->strtype == TYPE_THEORA);

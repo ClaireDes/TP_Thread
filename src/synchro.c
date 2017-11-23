@@ -6,7 +6,9 @@ bool fini;
 
 /* les variables pour la synchro, ici */
 pthread_mutex_t m;
+pthread_mutex_t m_texture;
 pthread_cond_t image;
+pthread_cond_t c_texture;
 bool fenetrePrete = false;
 
 /* l'implantation des fonctions de synchro ici */
@@ -43,6 +45,7 @@ void attendreFenetreTexture() {
 }
 
 void debutConsommerTexture() {
+
 }
 
 void finConsommerTexture() {
@@ -50,7 +53,18 @@ void finConsommerTexture() {
 
 
 void debutDeposerTexture() {
+  pthread_mutex_lock(&m_texture);
+  // while (le tampon est vide){
+  pthread_cond_wait(&c_texture, &m_texture);
+  //}
+  
+  pthread_mutex_unlock(&m_texture);
 }
 
 void finDeposerTexture() {
+  pthread_mutex_lock(&m_texture);
+ 
+ 
+  
+  pthread_mutex_unlock(&m_texture);
 }
