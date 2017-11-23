@@ -11,6 +11,7 @@ int windowsy = 0;
 int tex_iaff= 0;
 int tex_iwri= 0;
 
+pthread_mutex_t mutex_hashmap;
 
 static SDL_Window *screen = NULL;
 static SDL_Renderer *renderer = NULL;
@@ -61,9 +62,10 @@ void *draw2SDL(void *arg) {
     signalerFenetreEtTexturePrete();
 
     /* Protéger l'accès à la hashmap */
-
+    
+    pthread_mutex_lock(&mutex_hasmap);
     HASH_FIND_INT( theorastrstate, &serial, s );
-
+    pthread_mutex_unlock(&mutex_hasmap);
 
 
     assert(s->strtype == TYPE_THEORA);
