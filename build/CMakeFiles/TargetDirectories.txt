@@ -1,2 +1,0 @@
-/user/2/.base/deshayec/home/Documents/SEPC/Tp Thread/ensimag-video/build/CMakeFiles/check.dir
-/user/2/.base/deshayec/home/Documents/SEPC/Tp Thread/ensimag-video/build/CMakeFiles/ensivideo.dir
