@@ -12,6 +12,8 @@ int main(int argc, char *argv[]) {
     int res;
     pthread_t decodeTheora, decodeVorbis;
 
+    printf("Salut\n");
+
     if (argc != 2) {
 	fprintf(stderr, "Usage: %s FILE", argv[0]);
 	exit(EXIT_FAILURE);
@@ -24,13 +26,19 @@ int main(int argc, char *argv[]) {
     atexit(SDL_Quit);
     assert(res == 0);
     
+    //printf("Bonjour\n");
+
     // start the two stream readers
     pthread_create(&decodeTheora, NULL, theoraStreamReader, argv[1]); //creation du thread theora
     pthread_create(&decodeVorbis, NULL, vorbisStreamReader, argv[1]); //creation du thead vorbis
     
+    //printf("Hey\n");
+
     // wait audio thread
     pthread_join(decodeVorbis, NULL); //on attend la terminaison du thread vorbis
     
+    //  printf("Hello World\n");
+
     // 1 seconde de garde pour le son,
     sleep(1);
 

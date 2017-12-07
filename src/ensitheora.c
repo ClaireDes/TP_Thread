@@ -62,13 +62,16 @@ void *draw2SDL(void *arg) {
 
     /* Protéger l'accès à la hashmap */
     
+    //printf("Protection\n");
+
     pthread_mutex_lock(&mutex_hashmap);
     HASH_FIND_INT( theorastrstate, &serial, s );
     pthread_mutex_unlock(&mutex_hashmap);
 
+    //printf("Deprotection\n");
 
-    assert(s->strtype == TYPE_THEORA);
-    
+    //assert(s->strtype == TYPE_THEORA);
+    //printf("Yolooooo\n");
     while(! fini) {
 	// récupérer les évenements de fin
 	SDL_Event event;
@@ -80,8 +83,9 @@ void *draw2SDL(void *arg) {
 	  }
 	}
 
+	//printf("Traduction\n");
 	debutConsommerTexture();
-
+	//printf("guignol\n");
 	SDL_UpdateYUVTexture(texture, &rect,
 			       texturedate[tex_iaff].plane[0],
 			       windowsx,
@@ -147,6 +151,7 @@ void theora2SDL(struct streamstate *s) {
     // 1 seul producteur/un seul conso => synchro sur le nb seulement
 
     debutDeposerTexture();
+    //printf("deeeee\n");
 
     
     if (! once){
@@ -154,10 +159,12 @@ void theora2SDL(struct streamstate *s) {
 	//    texturedate[tex_iwri].buffer[i] = buffer[i];
 	once = true;
     } else
+      
 	res =  th_decode_ycbcr_out(s->th_dec.ctx, videobuffer);
 
     // copy data in the current texturedate
     for(int pl = 0; pl < 3; pl++) {
+      //printf("window: %d\n", windowsx);
 	for(int i=0; i < videobuffer[pl].height; i++) {
 	    memmove( texturedate[tex_iwri].plane[pl]+i*windowsx,
 		     videobuffer[pl].data+i* videobuffer[pl].stride,
