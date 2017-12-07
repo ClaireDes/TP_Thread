@@ -106,7 +106,11 @@ void finConsommerTexture() {
 
   pthread_mutex_lock(&m_consommation);
   
-  while(nombreTextureDeposee < NBTEX) {
+  /*while(nombreTextureDeposee < NBTEX) {
+  pthread_cond_signal(&c_texture); //on reveille un thread qui depose de la texture
+  }*/
+
+  while(nombreTextureDeposee <= 0) {
     pthread_cond_signal(&c_texture); //on reveille un thread qui depose de la texture
   }
   
@@ -119,13 +123,18 @@ void debutDeposerTexture() {
   //printf("debutDeposerTexture\n");
 
   pthread_mutex_lock(&m_texture);
-  while (nombreTextureDeposee > NBTEX){
+ 
+  while(nombreTextureDeposee > 0) {
     pthread_cond_wait(&c_texture, &m_texture);
   }
+
+  /*while (nombreTextureDeposee > NBTEX){
+    pthread_cond_wait(&c_texture, &m_texture);
+    }*/
  
   //printf("La\n");
   nombreTextureDeposee ++;
-  // printf("nombreTextureDeposee = %d\n", nombreTextureDeposee);
+  //printf("nombreTextureDeposee = %d\n", nombreTextureDeposee);
   pthread_mutex_unlock(&m_texture);
   //printf("Ici\n");
 }
@@ -136,11 +145,19 @@ void finDeposerTexture() {
   
   pthread_mutex_lock(&m_texture);
   
-  if(nombreTextureDeposee > NBTEX) {
+  if(nombreTextureDeposee > 0) {
+    pthread_cond_broadcast(&consommation_texture);
+  }
+  else {
+    pthread_cond_signal(&c_texture);
+  }
+
+
+  /*if(nombreTextureDeposee > NBTEX) {
     pthread_cond_broadcast(&consommation_texture); //on peut consommer de la texture
   }
   else {
     pthread_cond_signal(&c_texture); //on peut deposer de la texture
-  }
+    }*/
   pthread_mutex_unlock(&m_texture);
 }
